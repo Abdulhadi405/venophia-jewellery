@@ -3,12 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useWishlist } from '../hooks/useWishlist'
 import { useCart } from '../hooks/useCart'
+import { buildPreviewWhatsAppUrl } from '../utils/whatsapp'
 
 export default function WishlistPanel({ isOpen, onClose }) {
   const { items, removeItem, clearWishlist } = useWishlist()
   const { addItem } = useCart()
 
   const handleMoveToCart = (item) => {
+    if (item.previewOnly || !item.available) return
     addItem(item, item.sizes?.[0] || 'M', item.colors?.[0] || 'Default')
     removeItem(item.id || item._id)
   }
@@ -118,12 +120,9 @@ export default function WishlistPanel({ isOpen, onClose }) {
                           <p className="text-sm font-bold text-accent mt-1">Rs {item.price?.toLocaleString()}</p>
                         </div>
                         <div className="flex items-center gap-2 mt-2">
-                          <button
-                            onClick={() => handleMoveToCart(item)}
-                            className="flex-1 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent/90 transition-colors"
-                          >
-                            Add to Cart
-                          </button>
+                          {item.previewOnly || !item.available
+                            ? <a href={buildPreviewWhatsAppUrl(item)} target="_blank" rel="noreferrer" className="flex-1 py-1.5 text-center bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent/90 transition-colors">Test Enquiry</a>
+                            : <button onClick={() => handleMoveToCart(item)} className="flex-1 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent/90 transition-colors">Add to Cart</button>}
                           <button
                             onClick={() => removeItem(item.id || item._id)}
                             className="p-1.5 text-muted hover:text-accent transition-colors rounded-lg"

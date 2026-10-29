@@ -26,16 +26,8 @@ export default function NotFoundPage() {
           </p>
         </div>
         <div className="flex items-center justify-center gap-4">
-          <Link to="/">
-            <button className="px-8 py-3 bg-accent text-white text-sm font-semibold hover:bg-accent-hover transition-colors">
-              Go Home
-            </button>
-          </Link>
-          <Link to="/shop">
-            <button className="px-8 py-3 border-themed text-muted text-sm hover:text-foreground transition-colors">
-              Browse Shop
-            </button>
-          </Link>
+          <Link to="/" className="px-8 py-3 bg-accent text-white text-sm font-semibold hover:bg-accent-hover transition-colors">Go Home</Link>
+          <Link to="/shop" className="px-8 py-3 border-themed text-muted text-sm hover:text-foreground transition-colors">Browse Shop</Link>
         </div>
       </motion.div>
     </div>

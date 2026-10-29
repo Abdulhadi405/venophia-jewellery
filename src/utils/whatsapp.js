@@ -20,3 +20,14 @@ export function buildWhatsAppUrl(items) {
   const message = buildWhatsAppMessage(items)
   return message ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}` : ''
 }
+
+export function buildPreviewWhatsAppUrl(product) {
+  if (!product?.id || !product.previewOnly || product.available) return ''
+  const message = [
+    'Hello Venophia, I am testing the preview enquiry flow.',
+    `Placeholder product: ${product.name} (${product.id})`,
+    '',
+    'This is a test only. These are placeholder products and no real order is being placed.',
+  ].join('\n')
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+}

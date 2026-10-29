@@ -2,17 +2,19 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useWishlist } from '../hooks/useWishlist'
+import { useState } from 'react'
 
 const categoryLabel = value => value.charAt(0).toUpperCase() + value.slice(1)
 
 export default function ProductCard({ product }) {
   const { isWishlisted, toggleItem } = useWishlist()
+  const [imageFailed, setImageFailed] = useState(false)
   const saved = isWishlisted(product.id)
   return (
     <motion.article whileHover={{ y: -4 }} className="group rounded-2xl overflow-hidden card-depth" style={{ background: 'var(--surface-item-card)', border: '1px solid var(--border-default)' }}>
       <Link to={`/product/${product.id}`} className="block">
         <div className="relative aspect-[4/5] overflow-hidden" style={{ background: 'linear-gradient(145deg, var(--surface-input), var(--surface-categories))' }}>
-          {product.image ? <img src={product.image} alt={product.name} className="w-full h-full object-cover" loading="lazy" /> : (
+          {product.image && !imageFailed ? <img src={product.image} alt={product.name} className="w-full h-full object-cover" loading="lazy" onError={() => setImageFailed(true)} /> : (
             <div className="absolute inset-0 flex flex-col items-center justify-center text-accent/70">
               <span className="font-display text-6xl italic">V</span>
               <span className="text-[10px] uppercase tracking-[0.3em] mt-2">Design preview</span>

@@ -1,0 +1,662 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME TOKENS
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Dark mode (default) ─────────────────────────────────────── */
+:root {
+  --tw-color-primary:        8 8 8;
+  --tw-color-secondary:      20 20 20;
+  --tw-color-tertiary:       30 30 30;
+  --tw-color-foreground:     245 242 238;
+  --tw-color-muted:          138 132 128;
+  --tw-color-accent:         200 16 46;
+  --tw-color-accent-hover:   165 13 38;
+
+  --color-primary:    #080808;
+  --color-secondary:  #141414;
+  --color-tertiary:   #1e1e1e;
+  --color-foreground: #f5f2ee;
+  --color-muted:      #8a8480;
+  --color-accent:     #c8102e;
+
+  --surface-card:              linear-gradient(160deg, rgba(28,28,28,0.82) 0%, rgba(20,20,20,0.85) 100%);
+  --surface-cart:              linear-gradient(180deg, rgba(20,20,20,0.55) 0%, rgba(17,17,17,0.60) 100%);
+  --surface-header-scrolled:   linear-gradient(180deg, rgba(8,8,8,0.92) 0%, rgba(10,10,10,0.88) 100%);
+  --surface-mobile-menu:       linear-gradient(160deg, rgba(14,14,14,0.96) 0%, rgba(8,8,8,0.97) 55%, rgba(11,2,3,0.97) 100%);
+  --surface-footer:            linear-gradient(180deg, rgba(16,16,16,0.50) 0%, rgba(12,12,12,0.55) 100%);
+  --surface-footer-trust:      linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%);
+  --surface-newsletter:        linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(200,16,46,0.03) 100%);
+  --surface-input:             rgba(8,8,8,0.8);
+  --surface-hero-overlay:      linear-gradient(to bottom, rgba(0,0,0,0.22) 0%, rgba(8,8,8,0.06) 40%, rgba(8,8,8,0.72) 100%);
+  --surface-categories:        linear-gradient(180deg, rgba(10,10,10,0.48) 0%, rgba(13,13,13,0.52) 100%);
+  --surface-quick-add-close:   rgba(255,255,255,0.08);
+  --surface-quick-add-close-h: rgba(255,255,255,0.15);
+  --surface-checkout:          rgba(14,14,14,0.82);
+  --surface-item-card:         linear-gradient(135deg, rgba(255,255,255,0.025) 0%, rgba(8,8,8,0.8) 100%);
+  --surface-search:            linear-gradient(180deg, rgba(14,14,14,0.92) 0%, rgba(10,10,10,0.94) 100%);
+
+  --border-default:   rgba(255,255,255,0.07);
+  --border-subtle:    rgba(255,255,255,0.04);
+  --border-item:      rgba(255,255,255,0.05);
+  --star-empty:       rgba(255,255,255,0.15);
+  --scrollbar-track:  #080808;
+
+  --shadow-cart:   -8px 0 40px rgba(0,0,0,0.7), -1px 0 0 rgba(255,255,255,0.04) inset;
+  --shadow-header: 0 1px 0 rgba(255,255,255,0.04) inset, 0 4px 40px -4px rgba(0,0,0,0.8), 0 0 80px -20px rgba(200,16,46,0.08);
+  --inset-highlight: rgba(255,255,255,0.02);
+
+  /* Ghost / skeleton */
+  --ghost-base:  #1a1a1a;
+  --ghost-panel: #161616;
+  --ghost-shine: rgba(255,255,255,0.06);
+
+  /* Wishlist */
+  --wishlist-heart-fill: #c8102e;
+
+  /* Section alternating rhythm (dark) — semi-transparent so 3D canvas shows through */
+  --section-a: rgba(8,8,8,0.50);
+  --section-b: rgba(13,13,13,0.52);
+  --section-c: rgba(17,17,17,0.55);
+}
+
+/* ── Light mode — warm cream + terracotta accent ────────────────── */
+[data-theme="light"] {
+  --tw-color-primary:        249 248 246;
+  --tw-color-secondary:      241 239 235;
+  --tw-color-tertiary:       233 230 224;
+  --tw-color-foreground:     20 20 20;
+  --tw-color-muted:          90 85 78;
+  --tw-color-accent:         190 80 50;
+  --tw-color-accent-hover:   165 65 40;
+
+  --color-primary:    #f9f8f6;
+  --color-secondary:  #f1efeb;
+  --color-tertiary:   #e9e6e0;
+  --color-foreground: #141414;
+  --color-muted:      #5a554e;
+  --color-accent:     #be5032;
+
+  /* ── Section backgrounds: semi-transparent so silk bleeds through ── */
+  --surface-categories:        linear-gradient(180deg, rgba(249,248,246,0.72) 0%, rgba(241,239,235,0.75) 100%);
+  --surface-footer:            linear-gradient(180deg, rgba(245,242,237,0.80) 0%, rgba(240,236,230,0.82) 100%);
+  --surface-newsletter:        linear-gradient(135deg, rgba(190,80,50,0.06) 0%, rgba(190,80,50,0.10) 100%);
+  --surface-hero-overlay:      linear-gradient(to bottom, rgba(249,248,246,0.08) 0%, rgba(249,248,246,0.03) 45%, rgba(249,248,246,0.78) 100%);
+
+  /* ── UI surfaces: solid so content is readable ── */
+  --surface-card:              linear-gradient(160deg, rgba(255,255,255,0.97) 0%, rgba(252,248,244,0.97) 100%);
+  --surface-cart:              linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(251,249,246,0.98) 100%);
+  --surface-header-scrolled:   linear-gradient(180deg, rgba(249,248,246,0.96) 0%, rgba(245,243,239,0.95) 100%);
+  --surface-mobile-menu:       linear-gradient(160deg, rgba(249,248,246,0.99) 0%, rgba(241,239,235,0.99) 55%, rgba(233,230,224,0.99) 100%);
+  --surface-footer-trust:      linear-gradient(180deg, rgba(20,20,20,0.03) 0%, transparent 100%);
+  --surface-input:             rgba(255,255,255,0.98);
+  --surface-quick-add-close:   rgba(20,20,20,0.07);
+  --surface-quick-add-close-h: rgba(20,20,20,0.14);
+  --surface-checkout:          rgba(255,255,255,0.99);
+  --surface-item-card:         linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(249,248,246,0.97) 100%);
+  --surface-search:            linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(251,249,246,0.98) 100%);
+
+  /* ── Section rhythm: glassy but readable ── */
+  --section-a: rgba(252,250,247,0.72);
+  --section-b: rgba(245,242,237,0.74);
+  --section-c: rgba(238,234,228,0.76);
+
+  --border-default:   rgba(20,20,20,0.12);
+  --border-subtle:    rgba(20,20,20,0.08);
+  --border-item:      rgba(20,20,20,0.1);
+  --star-empty:       rgba(20,20,20,0.25);
+  --scrollbar-track:  #f0ede8;
+
+  --shadow-cart:   -8px 0 40px rgba(35,32,28,0.08), -1px 0 0 rgba(35,32,28,0.04) inset;
+  --shadow-header: 0 1px 0 rgba(255,255,255,0.8) inset, 0 4px 32px -4px rgba(35,32,28,0.08), 0 0 80px -20px rgba(185,90,60,0.06);
+  --inset-highlight: rgba(255,255,255,0.6);
+
+  --ghost-base:  #f0ede8;
+  --ghost-panel: #e8e4de;
+  --ghost-shine: rgba(255,255,255,0.8);
+
+  --wishlist-heart-fill: #b95a3c;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════════════════════ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/*
+  Chrome on Android hides/shows the address bar on scroll, which
+  changes the visual viewport height and causes `position: fixed`
+  elements to resize. Setting background-color on <html> (not just
+  body::after) guarantees the base colour always covers the full
+  screen — including the area revealed when the address bar tucks away.
+*/
+html {
+  scroll-behavior: smooth;
+  background-color: #080808; /* --color-primary dark */
+}
+[data-theme="light"] html {
+  background-color: #f9f8f6; /* --color-primary light */
+}
+
+body {
+  background-color: transparent;
+  color: var(--color-foreground);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: color 0.35s ease;
+}
+
+/* Full-page tinted backdrop behind the 3D canvas.
+   Uses --app-height (set by JS on mount, updated only on orientationchange)
+   instead of bottom:0 / inset:0, so Chrome's address-bar animation never
+   causes a resize flash on this layer either. */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: var(--app-height, 100vh);
+  z-index: -1;
+  background-color: var(--color-primary);
+  transition: background-color 0.35s ease;
+}
+
+/* Persistent red ambient bloom — sits between base colour and 3D canvas */
+#glow-ambient {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: var(--app-height, 100vh);
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 42%, rgba(200,16,46,0.22) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 15% 85%,  rgba(200,16,46,0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 35% 25% at 85% 12%,  rgba(200,16,46,0.09) 0%, transparent 60%);
+  transition: opacity 0.35s ease;
+}
+[data-theme="light"] #glow-ambient { opacity: 0.45; }
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: var(--app-height, 100vh);
+  z-index: 9999; pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+[data-theme="light"] body::before { opacity: 0.012; }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 2px; }
+[data-theme="light"] ::-webkit-scrollbar-track { background: var(--color-secondary); }
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITIES
+═════════════════════════════��═════════════════════════════════ */
+.underline-hover { position: relative; display: inline-block; }
+.underline-hover::after {
+  content: '';
+  position: absolute; bottom: -2px; left: 0;
+  width: 100%; height: 1px;
+  background: var(--color-accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.underline-hover:hover::after { transform: scaleX(1); }
+
+/* Section rhythm */
+.section-a { background: var(--section-a); }
+.section-b { background: var(--section-b); }
+.section-c { background: var(--section-c); }
+
+.section-divide {
+  border-top: 1px solid var(--border-subtle);
+}
+[data-theme="light"] .section-divide {
+  border-top: 1px solid rgba(250,248,245,0.08);
+  box-shadow: 0 -1px 0 rgba(250,248,245,0.04) inset;
+}
+
+/* Border utilities */
+.border-themed        { border: 1px solid var(--border-default) !important; }
+.border-subtle-themed { border: 1px solid var(--border-subtle)  !important; }
+.border-b             { border-bottom-color: var(--border-subtle); }
+
+/* ═══════════════════════════════════════════════════════════════
+   COMPONENT TOKENS
+═══════════════════════════════════════════════════════════════ */
+
+/* Glassmorphism base */
+.glass {
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-default);
+}
+[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(20,20,20,0.1);
+}
+
+/* Card depth */
+.card-depth {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.04) inset,
+    0 -1px 0 rgba(0,0,0,0.6) inset,
+    0 4px 24px -4px rgba(0,0,0,0.7),
+    0 1px 6px -1px rgba(0,0,0,0.5);
+  transition: box-shadow 0.22s ease, transform 0.22s ease, background 0.22s ease;
+}
+.card-depth:hover {
+  background: rgba(25, 25, 25, 0.75);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 -1px 0 rgba(0,0,0,0.6) inset,
+    0 8px 40px -6px rgba(0,0,0,0.85),
+    0 2px 10px -2px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(200,16,46,0.08);
+}
+
+[data-theme="light"] .card-depth {
+  background: var(--color-secondary);
+  border: 1px solid rgba(250,248,245,0.08);
+  box-shadow:
+    0 1px 0 rgba(250,248,245,0.08) inset,
+    0 2px 8px rgba(20,24,40,0.2),
+    0 12px 32px -4px rgba(20,24,40,0.25);
+}
+[data-theme="light"] .card-depth:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(250,248,245,0.1) inset,
+    0 6px 16px rgba(20,24,40,0.25),
+    0 20px 48px -6px rgba(20,24,40,0.35),
+    0 0 0 1.5px rgba(218,180,105,0.25);
+}
+
+/* Card info panel in light — navy to darker navy */
+[data-theme="light"] .card-depth .p-3\.5 {
+  background: linear-gradient(to bottom, #1c2236, #232a44) !important;
+}
+
+/* Accent glow */
+.accent-glow { box-shadow: 0 0 32px -4px rgba(200,16,46,0.35), 0 0 8px -2px rgba(200,16,46,0.2); }
+[data-theme="light"] .accent-glow { box-shadow: 0 0 28px -4px rgba(190,80,50,0.45), 0 0 10px -2px rgba(190,80,50,0.3); }
+
+/* Primary button styles */
+button[class*="bg-accent"] {
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+button[class*="bg-accent"]:hover {
+  box-shadow: 0 8px 24px rgba(200,16,46,0.3);
+}
+
+/* Secondary button hover effects */
+[data-theme="light"] button:not([class*="bg-accent"]):hover {
+  background-color: rgba(190,80,50,0.08) !important;
+}
+
+/* Input focus states */
+[data-theme="light"] input:focus, 
+[data-theme="light"] textarea:focus {
+  border-color: var(--color-accent) !important;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(190,80,50,0.1) !important;
+}
+
+/* Link hover effects in light mode */
+[data-theme="light"] a {
+  transition: color 0.2s ease;
+}
+[data-theme="light"] a:hover {
+  color: var(--color-accent);
+}
+
+/* Product card shadows */
+[data-theme="light"] .card-depth {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Section depth */
+.section-depth {
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(200,16,46,0.04) 0%, transparent 70%),
+    linear-gradient(to bottom, rgba(255,255,255,0.01) 0%, transparent 100%);
+  border-top: 1px solid var(--border-default);
+}
+[data-theme="light"] .section-depth {
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(218,180,105,0.06) 0%, transparent 70%),
+    linear-gradient(to bottom, rgba(250,248,245,0.01) 0%, transparent 100%);
+}
+
+/* Panel inset */
+.panel-inset {
+  background: linear-gradient(135deg, rgba(255,255,255,0.035) 0%, transparent 50%), var(--color-secondary);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.05) inset,
+    0 -1px 0 rgba(0,0,0,0.4) inset,
+    0 8px 32px -8px rgba(0,0,0,0.8);
+}
+[data-theme="light"] .panel-inset {
+  background: linear-gradient(135deg, rgba(250,248,245,0.08) 0%, rgba(218,180,105,0.04) 50%), var(--color-secondary);
+  box-shadow:
+    0 1px 0 rgba(250,248,245,0.08) inset,
+    0 -1px 0 rgba(20,24,40,0.3) inset,
+    0 6px 20px -6px rgba(20,24,40,0.2);
+}
+
+/* Text emboss */
+.text-emboss { text-shadow: 0 1px 0 rgba(0,0,0,0.8), 0 -1px 0 rgba(255,255,255,0.04); }
+[data-theme="light"] .text-emboss { text-shadow: 0 1px 0 rgba(20,24,40,0.3), 0 -1px 0 rgba(250,248,245,0.08); }
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════════════════ */
+@keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+@keyframes glow     { 0%,100%{box-shadow:0 0 20px rgba(200,16,46,.3),0 0 60px rgba(200,16,46,.1)} 50%{box-shadow:0 0 40px rgba(200,16,46,.6),0 0 80px rgba(200,16,46,.2)} }
+@keyframes glow-light {
+  0%,100% {
+    box-shadow: 0 0 24px rgba(212,165,116,.4), 0 0 72px rgba(212,165,116,.15);
+  }
+  50% {
+    box-shadow: 0 0 48px rgba(212,165,116,.7), 0 0 96px rgba(212,165,116,.3);
+  }
+}
+@keyframes shimmer  { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+@keyframes fade-up  { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pulse-ring { 0%{transform:scale(1);opacity:0.6} 100%{transform:scale(1.8);opacity:0} }
+@keyframes ghost-sweep { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+@keyframes theme-spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes heart-pop { 0%{transform:scale(1)} 40%{transform:scale(1.4)} 70%{transform:scale(0.88)} 100%{transform:scale(1)} }
+@keyframes search-drop { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+
+.animate-float   { animation: float 7s ease-in-out infinite; }
+.animate-glow    { animation: glow 2.5s ease-in-out infinite; }
+.animate-shimmer { animation: shimmer 2.5s linear infinite; background-size: 200% 100%; }
+.animate-fade-up { animation: fade-up 0.6s ease forwards; }
+.animate-heart-pop { animation: heart-pop 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+.animate-search-drop { animation: search-drop 0.22s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+.theme-toggle-icon { transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease; }
+
+/* ═══════════════════════════════════════════════════════════════
+   GHOST / SKELETON
+═══════════════════════════════════════════════════════════════ */
+.ghost-block {
+  position: relative; overflow: hidden; border-radius: 6px;
+  background: var(--ghost-base);
+}
+.ghost-block::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--ghost-shine) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: ghost-sweep 1.6s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MISC
+═══════════════════════════════════════════════════════════════ */
+.line-clamp-1 { display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; }
+.line-clamp-2 { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+select { -webkit-appearance:none; appearance:none; }
+*:focus-visible { outline:1px solid var(--color-accent); outline-offset:2px; }
+.scrollbar-none::-webkit-scrollbar { display:none; }
+.scrollbar-none { -ms-overflow-style:none; scrollbar-width:none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   LIGHT MODE — GLOBAL TEXT & ELEMENT OVERRIDES
+   Single source of truth — no scattered !important wars
+═══════════════════════════════════════════════════════════════ */
+
+/* Foreground */
+[data-theme="light"] .text-foreground     { color: #23201c !important; }
+[data-theme="light"] .text-foreground\/90 { color: rgba(35,32,28,0.92) !important; }
+[data-theme="light"] .text-foreground\/80 { color: rgba(35,32,28,0.82) !important; }
+[data-theme="light"] .text-foreground\/70 { color: rgba(35,32,28,0.72) !important; }
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4  { color: #23201c !important; }
+[data-theme="light"] .font-display { color: #23201c; }
+
+/* Muted — single value, no duplication */
+[data-theme="light"] .text-muted          { color: var(--color-muted) !important; }
+[data-theme="light"] .text-muted\/50      { color: rgba(120,115,108,0.7) !important; }
+[data-theme="light"] .text-muted\/40      { color: rgba(120,115,108,0.58) !important; }
+
+/* Borders */
+[data-theme="light"] .border-white\/\[0\.06\],
+[data-theme="light"] .border-white\/\[0\.07\],
+[data-theme="light"] .border-white\/\[0\.08\],
+[data-theme="light"] .border-white\/\[0\.09\],
+[data-theme="light"] .border-white\/\[0\.1\]  { border-color: rgba(35,32,28,0.1) !important; }
+[data-theme="light"] .border-white\/\[0\.04\],
+[data-theme="light"] .border-white\/\[0\.05\]  { border-color: rgba(35,32,28,0.06) !important; }
+[data-theme="light"] .border-themed           { border-color: rgba(35,32,28,0.1) !important; }
+[data-theme="light"] .border-subtle-themed    { border-color: rgba(35,32,28,0.06) !important; }
+
+/* Overlays */
+[data-theme="light"] .bg-black\/60,
+[data-theme="light"] .bg-black\/65 { background-color: rgba(20,20,20,0.65) !important; }
+
+/* Inputs */
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  background: var(--surface-input);
+  border-color: rgba(35,32,28,0.12) !important;
+  color: var(--color-foreground);
+}
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder { color: rgba(120,115,108,0.65); }
+
+/* Nav */
+[data-theme="light"] nav a { 
+  color: var(--color-foreground);
+  transition: color 0.2s ease;
+}
+[data-theme="light"] nav a:hover {
+  color: var(--color-accent);
+}
+
+/* Product cards */
+[data-theme="light"] .card-depth h3,
+[data-theme="light"] .card-depth .underline-hover { color: #23201c !important; }
+[data-theme="light"] .bg-foreground.text-primary {
+  background: #23201c !important;
+  color: #fcfaf7 !important;
+}
+[data-theme="light"] .group.flex.gap-5.bg-secondary {
+  background: var(--color-secondary);
+  border-color: rgba(35,32,28,0.08) !important;
+  box-shadow: 0 2px 10px rgba(35,32,28,0.06), 0 1px 0 rgba(255,255,255,0.8) inset;
+}
+
+/* Quick-add overlay */
+[data-theme="light"] .fixed.inset-0.z-50.flex.flex-col { background: var(--surface-card) !important; }
+
+/* bg utilities */
+[data-theme="light"] .bg-secondary { background-color: var(--color-secondary); }
+[data-theme="light"] .bg-tertiary  { background-color: var(--color-tertiary); }
+
+/* ─────────────────────────────────────────────────────────────────
+   LIGHT MODE COMPONENT OVERRIDES — all UI elements solid/opaque
+   Sections transparent, components readable
+───────────────────────────────────────────────────────────────── */
+
+/* Hero vignette */
+[data-theme="light"] .hero-vignette {
+  background: linear-gradient(to top, var(--color-primary) 0%, var(--color-primary) 15%, transparent 55%) !important;
+}
+
+/* Header — solid enough to be readable over silk */
+[data-theme="light"] header,
+[data-theme="light"] header.backdrop-blur-md,
+[data-theme="light"] header.backdrop-blur-xl {
+  background: rgba(249,248,246,0.96) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid rgba(20,20,20,0.08) !important;
+}
+
+/* Footer */
+[data-theme="light"] footer {
+  box-shadow: 0 -1px 0 rgba(35,32,28,0.06);
+}
+
+/* Side panels (cart, wishlist) — fully opaque */
+[data-theme="light"] .fixed.right-0.top-0.h-screen {
+  background: rgba(250,248,246,0.99) !important;
+  box-shadow: -4px 0 32px rgba(35,32,28,0.08), -1px 0 0 rgba(35,32,28,0.06) !important;
+}
+
+/* Search overlay backdrop */
+[data-theme="light"] .fixed.inset-0[style*="rgba(0,0,0"] {
+  background: rgba(20,18,16,0.35) !important;
+}
+
+/* Search panel */
+[data-theme="light"] .fixed.inset-0.z-50 > div[style*="background"] {
+  background: rgba(249,248,246,0.98) !important;
+  border: 1px solid rgba(20,20,20,0.10) !important;
+}
+
+/* Checkout overlay */
+[data-theme="light"] .fixed.inset-0.z-50.flex.flex-col {
+  background: rgba(249,248,246,0.99) !important;
+}
+
+/* ── Product cards ── */
+[data-theme="light"] .card-depth {
+  background: rgba(255,255,255,0.97) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(20,20,20,0.10) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,1) inset,
+    0 2px 8px rgba(20,20,20,0.05),
+    0 10px 32px -4px rgba(20,20,20,0.08);
+  transition: all 0.3s ease;
+}
+[data-theme="light"] .card-depth:hover {
+  background: rgba(255,255,255,0.99) !important;
+  transform: translateY(-3px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,1) inset,
+    0 6px 16px rgba(20,20,20,0.07),
+    0 24px 56px -6px rgba(20,20,20,0.12),
+    0 0 0 1px rgba(190,80,50,0.20);
+}
+/* Card info panel */
+[data-theme="light"] .card-depth .p-2\.5,
+[data-theme="light"] .card-depth .p-3\.5 {
+  background: rgba(255,255,255,0.98) !important;
+}
+[data-theme="light"] .card-depth h3,
+[data-theme="light"] .card-depth .underline-hover { color: #23201c !important; }
+[data-theme="light"] .card-depth .text-accent { color: var(--color-accent) !important; }
+[data-theme="light"] .bg-foreground.text-primary {
+  background: #23201c !important;
+  color: #fcfaf7 !important;
+}
+
+/* ── panel-inset (order cards, checkout sections, contact form) ── */
+[data-theme="light"] .panel-inset {
+  background: rgba(255,255,255,0.97) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,1) inset,
+    0 4px 16px -4px rgba(20,20,20,0.08);
+}
+
+/* ── Filter pills + category pills (bg-secondary/60) ── */
+[data-theme="light"] .bg-secondary\/60 {
+  background-color: rgba(255,255,255,0.97) !important;
+}
+[data-theme="light"] .bg-secondary\/80 {
+  background-color: rgba(255,255,255,0.98) !important;
+}
+
+/* ── Dropdown menus (ProductGrid sort/price) ── */
+[data-theme="light"] [class*="bg-secondary"][class*="backdrop-blur"] {
+  background-color: rgba(255,255,255,0.98) !important;
+}
+
+/* Grid toggle bar (bg-secondary/60 wrapper) */
+[data-theme="light"] .backdrop-blur-md[class*="bg-secondary"] {
+  background: rgba(255,255,255,0.97) !important;
+}
+
+/* ── Category icon tiles on homepage ── */
+[data-theme="light"] a[class*="rounded-2xl"],
+[data-theme="light"] .group a[class*="rounded-2xl"] {
+  background: rgba(255,255,255,0.96) !important;
+}
+
+/* ── List view product row ── */
+[data-theme="light"] .group.flex.gap-5.bg-secondary {
+  background: rgba(255,255,255,0.97) !important;
+  border-color: rgba(35,32,28,0.08) !important;
+  box-shadow: 0 2px 10px rgba(35,32,28,0.05), 0 1px 0 rgba(255,255,255,1) inset;
+}
+
+/* ── Inputs / select / textarea ── */
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  background: rgba(255,255,255,0.98) !important;
+  border-color: rgba(35,32,28,0.14) !important;
+  color: var(--color-foreground) !important;
+}
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder { color: rgba(120,115,108,0.65); }
+
+/* ── bg-primary/80 inputs (admin, orders) ── */
+[data-theme="light"] .bg-primary\/80,
+[data-theme="light"] .bg-primary\/60 {
+  background-color: rgba(255,255,255,0.97) !important;
+}
+
+/* ── Nav links ── */
+[data-theme="light"] nav a {
+  color: var(--color-foreground);
+  transition: color 0.2s ease;
+}
+[data-theme="light"] nav a:hover { color: var(--color-accent); }
+
+/* ── bg-secondary shadow card (collections) ── */
+[data-theme="light"] .bg-secondary.shadow-2xl {
+  background: rgba(255,255,255,0.98) !important;
+  box-shadow: 0 4px 6px rgba(35,32,28,0.04), 0 12px 32px -4px rgba(35,32,28,0.08) !important;
+}
+
+/* Quick-add overlay */
+[data-theme="light"] .fixed.inset-0.z-50.flex.flex-col { background: rgba(249,248,246,0.99) !important; }
+
+/* Wishlist */
+[data-theme="light"] .wishlist-btn-active svg { filter: drop-shadow(0 0 6px rgba(185,90,60,0.5)); }
+
+/* Keep white text white */
+[data-theme="light"] .text-white { color: #ffffff !important; }
+
+/* Mobile menu overlay — opaque */
+[data-theme="light"] [style*="surface-mobile-menu"],
+[data-theme="light"] .fixed.inset-0.z-40 { background: rgba(249,248,246,0.99) !important; }
+

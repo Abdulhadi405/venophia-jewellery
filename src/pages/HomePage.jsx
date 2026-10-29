@@ -1,118 +1,13 @@
 import React from 'react'
-import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import Hero from '../components/Hero'
 import ProductCard from '../components/ProductCard'
-import { GhostCard, GhostGrid } from '../components/GhostCard'
-import CategoryIcon from '../components/CategoryIcon'
-import ScrollFloat from '../components/ScrollFloat'
-import { useProducts } from '../hooks/useProducts'
-import { categories } from '../data/products'
+import { categories, products } from '../data/products'
 
 export default function HomePage() {
-  const productsRef = useRef(null)
-  const { products: featured, loading: loadingFeatured } = useProducts({ featured: 'true', limit: 8 })
-  const { products: newArrivals, loading: loadingNew }   = useProducts({ newArrival: 'true', limit: 4 })
-
-  return (
-    <div className="min-h-screen">
-      <Hero onShopClick={() => productsRef.current?.scrollIntoView({ behavior: 'smooth' })} />
-
-      {/* Categories */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 section-divide" style={{ background: 'var(--surface-categories)' }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4 mb-8">
-            <ScrollFloat>
-              <h2 className="font-display text-3xl font-bold w-full text-center sm:text-left">Shop by <span className="text-accent italic">Category</span></h2>
-            </ScrollFloat>
-          </div>
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
-            {categories.map((cat, i) => (
-              <motion.div key={cat.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
-                <Link
-                  to={`/shop/${cat.id}`}
-                  className="flex flex-col items-center gap-2 p-4 rounded-2xl hover:bg-accent/5 transition-all group"
-                  style={{ border: '1px solid var(--border-default)' }}
-                >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:bg-accent/10 group-hover:border-accent/20 transition-all"
-                    style={{ background: 'var(--inset-highlight)', border: '1px solid var(--border-default)' }}
-                  >
-                    <CategoryIcon id={cat.id} className="w-5 h-5 text-muted group-hover:text-accent transition-colors" />
-                  </div>
-                  <span className="text-xs text-muted group-hover:text-foreground transition-colors text-center leading-tight">{cat.label}</span>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section ref={productsRef} className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden section-divide"
-        style={{ background: 'var(--surface-footer)' }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-10">
-            <div>
-              <p className="text-[10px] tracking-superwide uppercase text-accent font-semibold mb-2 flex items-center gap-2">
-                <span className="w-5 h-px bg-accent" /> Curated Selection
-              </p>
-              <ScrollFloat>
-                <h2 className="font-display text-4xl font-bold">Featured <span className="text-accent italic">Pieces</span></h2>
-              </ScrollFloat>
-            </div>
-            <Link to="/shop" className="text-sm text-muted hover:text-foreground transition-colors flex items-center gap-1 group">
-              View all <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
-            </Link>
-          </div>
-          {loadingFeatured
-            ? <GhostGrid count={8} />
-            : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-                {featured.map((p, i) => (
-                  <motion.div key={p._id} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*0.05}}>
-                    <ProductCard product={{...p, id: p._id}} />
-                  </motion.div>
-                ))}
-              </div>
-            )
-          }
-        </div>
-      </section>
-
-      {/* New Arrivals */}
-      {(loadingNew || newArrivals.length > 0) && (
-        <section className="py-20 px-4 sm:px-6 lg:px-8 section-divide" style={{ background: 'var(--surface-categories)' }}>
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-10">
-              <div>
-                <p className="text-[10px] tracking-superwide uppercase text-accent font-semibold mb-2 flex items-center gap-2">
-                  <span className="w-5 h-px bg-accent" /> Just Dropped
-                </p>
-                <ScrollFloat>
-                  <h2 className="font-display text-4xl font-bold">New <span className="text-accent italic">Arrivals</span></h2>
-                </ScrollFloat>
-              </div>
-              <Link to="/shop?filter=new" className="text-sm text-muted hover:text-foreground transition-colors flex items-center gap-1 group">
-                See all <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
-              </Link>
-            </div>
-            {loadingNew
-              ? <GhostGrid count={4} cols="grid-cols-2 sm:grid-cols-4" />
-              : (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-                  {newArrivals.map((p, i) => (
-                    <motion.div key={p._id} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*0.05}}>
-                      <ProductCard product={{...p, id: p._id}} />
-                    </motion.div>
-                  ))}
-                </div>
-              )
-            }
-          </div>
-        </section>
-      )}
-    </div>
-  )
+  return <div>
+    <section className="relative overflow-hidden px-5 pb-20 pt-36 sm:px-8 lg:pt-48"><div className="absolute inset-0 -z-10" style={{ background: 'radial-gradient(circle at 75% 20%, rgba(181,142,92,.18), transparent 34%), linear-gradient(135deg, var(--surface-categories), var(--color-primary))' }} /><div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_.95fr]"><motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}><p className="mb-5 text-[10px] uppercase tracking-[0.35em] text-accent">A jewellery edit for every day</p><h1 className="max-w-3xl font-display text-6xl leading-[.94] sm:text-8xl">Small details.<br /><span className="italic text-accent">Beautifully chosen.</span></h1><p className="mt-7 max-w-md text-sm leading-7 text-muted">Venophia is a Pakistan-wide jewellery storefront in progress. Explore the design preview and enquire on WhatsApp when genuine pieces are added.</p><div className="mt-9 flex flex-wrap gap-3"><Link to="/shop" className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">Explore the edit</Link><Link to="/about" className="rounded-full border border-themed px-6 py-3 text-sm font-semibold hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">About Venophia</Link></div></motion.div><div className="relative mx-auto flex aspect-square w-full max-w-md items-center justify-center rounded-full border border-accent/30" style={{ background: 'radial-gradient(circle, rgba(181,142,92,.2), transparent 62%)' }}><div className="absolute inset-8 rounded-full border border-accent/20" /><div className="text-center"><span className="font-display text-[9rem] italic text-accent/80">V</span><p className="text-[10px] uppercase tracking-[.4em] text-muted">design preview</p></div></div></div></section>
+    <section className="border-y border-themed px-5 py-16 sm:px-8"><div className="mx-auto max-w-7xl"><div className="mb-8 flex items-end justify-between"><div><p className="text-[10px] uppercase tracking-[.3em] text-accent">Browse by form</p><h2 className="mt-2 font-display text-4xl">The collection edit</h2></div><Link to="/collections" className="text-sm text-muted hover:text-accent">View all →</Link></div><div className="grid grid-cols-2 gap-3 md:grid-cols-4">{categories.map(category => <Link key={category.id} to={`/shop/${category.id}`} className="group rounded-2xl border border-themed p-5 hover:border-accent/50 hover:bg-secondary transition-colors"><span className="font-display text-3xl text-accent">{category.label[0]}</span><p className="mt-8 text-sm">{category.label}</p><p className="mt-1 text-xs text-muted">Design previews</p></Link>)}</div></div></section>
+    <section className="px-5 py-20 sm:px-8"><div className="mx-auto max-w-7xl"><p className="text-[10px] uppercase tracking-[.3em] text-accent">Preview only</p><h2 className="mt-2 font-display text-4xl">A considered starting point</h2><p className="mt-3 max-w-lg text-sm text-muted">These cards are layout previews, not live inventory. Real product photography, names and prices will be added after sourcing.</p><div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{products.map(product => <ProductCard key={product.id} product={product} />)}</div></div></section>
+  </div>
 }

@@ -13,15 +13,15 @@
   --tw-color-tertiary:       30 30 30;
   --tw-color-foreground:     245 242 238;
   --tw-color-muted:          138 132 128;
-  --tw-color-accent:         200 16 46;
-  --tw-color-accent-hover:   165 13 38;
+  --tw-color-accent:         181 142 92;
+  --tw-color-accent-hover:   155 116 70;
 
   --color-primary:    #080808;
   --color-secondary:  #141414;
   --color-tertiary:   #1e1e1e;
   --color-foreground: #f5f2ee;
   --color-muted:      #8a8480;
-  --color-accent:     #c8102e;
+  --color-accent:     #b58e5c;
 
   --surface-card:              linear-gradient(160deg, rgba(28,28,28,0.82) 0%, rgba(20,20,20,0.85) 100%);
   --surface-cart:              linear-gradient(180deg, rgba(20,20,20,0.55) 0%, rgba(17,17,17,0.60) 100%);
@@ -29,13 +29,11 @@
   --surface-mobile-menu:       linear-gradient(160deg, rgba(14,14,14,0.96) 0%, rgba(8,8,8,0.97) 55%, rgba(11,2,3,0.97) 100%);
   --surface-footer:            linear-gradient(180deg, rgba(16,16,16,0.50) 0%, rgba(12,12,12,0.55) 100%);
   --surface-footer-trust:      linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%);
-  --surface-newsletter:        linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(200,16,46,0.03) 100%);
   --surface-input:             rgba(8,8,8,0.8);
   --surface-hero-overlay:      linear-gradient(to bottom, rgba(0,0,0,0.22) 0%, rgba(8,8,8,0.06) 40%, rgba(8,8,8,0.72) 100%);
   --surface-categories:        linear-gradient(180deg, rgba(10,10,10,0.48) 0%, rgba(13,13,13,0.52) 100%);
   --surface-quick-add-close:   rgba(255,255,255,0.08);
   --surface-quick-add-close-h: rgba(255,255,255,0.15);
-  --surface-checkout:          rgba(14,14,14,0.82);
   --surface-item-card:         linear-gradient(135deg, rgba(255,255,255,0.025) 0%, rgba(8,8,8,0.8) 100%);
   --surface-search:            linear-gradient(180deg, rgba(14,14,14,0.92) 0%, rgba(10,10,10,0.94) 100%);
 
@@ -55,7 +53,7 @@
   --ghost-shine: rgba(255,255,255,0.06);
 
   /* Wishlist */
-  --wishlist-heart-fill: #c8102e;
+  --wishlist-heart-fill: #b58e5c;
 
   /* Section alternating rhythm (dark) — semi-transparent so 3D canvas shows through */
   --section-a: rgba(8,8,8,0.50);
@@ -83,7 +81,6 @@
   /* ── Section backgrounds: semi-transparent so silk bleeds through ── */
   --surface-categories:        linear-gradient(180deg, rgba(249,248,246,0.72) 0%, rgba(241,239,235,0.75) 100%);
   --surface-footer:            linear-gradient(180deg, rgba(245,242,237,0.80) 0%, rgba(240,236,230,0.82) 100%);
-  --surface-newsletter:        linear-gradient(135deg, rgba(190,80,50,0.06) 0%, rgba(190,80,50,0.10) 100%);
   --surface-hero-overlay:      linear-gradient(to bottom, rgba(249,248,246,0.08) 0%, rgba(249,248,246,0.03) 45%, rgba(249,248,246,0.78) 100%);
 
   /* ── UI surfaces: solid so content is readable ── */
@@ -95,7 +92,6 @@
   --surface-input:             rgba(255,255,255,0.98);
   --surface-quick-add-close:   rgba(20,20,20,0.07);
   --surface-quick-add-close-h: rgba(20,20,20,0.14);
-  --surface-checkout:          rgba(255,255,255,0.99);
   --surface-item-card:         linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(249,248,246,0.97) 100%);
   --surface-search:            linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(251,249,246,0.98) 100%);
 
@@ -539,7 +535,6 @@ select { -webkit-appearance:none; appearance:none; }
   border: 1px solid rgba(20,20,20,0.10) !important;
 }
 
-/* Checkout overlay */
 [data-theme="light"] .fixed.inset-0.z-50.flex.flex-col {
   background: rgba(249,248,246,0.99) !important;
 }
@@ -578,7 +573,7 @@ select { -webkit-appearance:none; appearance:none; }
   color: #fcfaf7 !important;
 }
 
-/* ── panel-inset (order cards, checkout sections, contact form) ── */
+/* ── panel-inset for elevated content sections ── */
 [data-theme="light"] .panel-inset {
   background: rgba(255,255,255,0.97) !important;
   box-shadow:
@@ -659,4 +654,3 @@ select { -webkit-appearance:none; appearance:none; }
 /* Mobile menu overlay — opaque */
 [data-theme="light"] [style*="surface-mobile-menu"],
 [data-theme="light"] .fixed.inset-0.z-40 { background: rgba(249,248,246,0.99) !important; }
-

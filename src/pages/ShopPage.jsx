@@ -1,88 +1,16 @@
-import React from 'react'
-import { useEffect } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import ProductGrid from '../components/ProductGrid'
-import { GhostGrid } from '../components/GhostCard'
-import Breadcrumb from '../components/Breadcrumb'
-import CategoryIcon from '../components/CategoryIcon'
-import ScrollFloat from '../components/ScrollFloat'
-import { useProducts } from '../hooks/useProducts'
+import ProductCard from '../components/ProductCard'
 import { categories } from '../data/products'
+import { useProducts } from '../hooks/useProducts'
 
 export default function ShopPage() {
   const { category } = useParams()
   const [searchParams] = useSearchParams()
-  const filterNew = searchParams.get('filter') === 'new'
-
-  useEffect(() => { window.scrollTo(0, 0) }, [category])
-
-  const params = {}
-  if (category)  params.category   = category
-  if (filterNew) params.newArrival = 'true'
-
-  const { products, loading } = useProducts(params)
-
-  // Dynamically generate categories from products
-  const dynamicCategories = [
-    { id: 'all', label: 'All Products', count: products.length },
-    ...Array.from(
-      products.reduce((set, p) => {
-        if (p.category) set.add(p.category)
-        return set
-      }, new Set()),
-      cat => ({
-        id: cat,
-        label: cat.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-        count: products.filter(p => p.category === cat).length
-      })
-    )
-  ]
-
-  const catInfo = dynamicCategories.find(c => c.id === category)
-  const title = filterNew ? 'New Arrivals' : catInfo ? catInfo.label : 'All Products'
-  const subtitle = filterNew
-    ? 'Fresh styles, just dropped'
-    : catInfo
-    ? `${products.length} premium pieces in ${catInfo.label}`
-    : 'Browse our complete premium collection'
-
-  const breadcrumbs = [
-    { label: 'Home', to: '/' },
-    { label: 'Shop', to: '/shop' },
-    ...(catInfo ? [{ label: catInfo.label }] : []),
-    ...(filterNew ? [{ label: 'New Arrivals' }] : []),
-  ]
-
-  return (
-    <div className="pt-[68px] min-h-screen">
-      <div className="py-10 px-4 sm:px-6 lg:px-8" style={{ borderBottom: "1px solid var(--border-default)", background: "var(--surface-cart)", boxShadow: "inset 0 1px 0 var(--inset-highlight)" }}>
-        <div className="max-w-7xl mx-auto">
-          <Breadcrumb items={breadcrumbs} />
-          <div className="flex items-end gap-4 mt-6">
-            {catInfo && (
-              <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
-                <CategoryIcon id={catInfo.id} className="w-5 h-5 text-accent" />
-              </div>
-            )}
-            <div>
-              <ScrollFloat>
-                <h1 className="font-display text-4xl sm:text-5xl font-bold">{title}</h1>
-              </ScrollFloat>
-              <p className="text-muted mt-2 text-sm">{subtitle}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {products.length === 0 && !loading ? (
-          <div className="text-center py-24"><p className="text-muted text-lg">No products found</p></div>
-        ) : (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <ProductGrid products={products} loading={loading} categories={dynamicCategories} />
-          </motion.div>
-        )}
-      </div>
-    </div>
-  )
+  const [query, setQuery] = useState(searchParams.get('q') || '')
+  const [sort, setSort] = useState('category')
+  const { products } = useProducts({ category, query })
+  const visible = useMemo(() => [...products].sort((a, b) => sort === 'name' ? a.name.localeCompare(b.name) : a.category.localeCompare(b.category)), [products, sort])
+  const title = categories.find(item => item.id === category)?.label || 'Shop the edit'
+  return <div className="px-5 pb-20 pt-32 sm:px-8"><div className="mx-auto max-w-7xl"><p className="text-[10px] uppercase tracking-[.3em] text-accent">Venophia catalogue</p><h1 className="mt-3 font-display text-5xl">{title}</h1><p className="mt-3 max-w-xl text-sm text-muted">Preview pieces are clearly labelled until genuine inventory is supplied.</p><div className="mt-10 flex flex-col gap-3 border-y border-themed py-4 sm:flex-row"><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Search the preview catalogue" className="flex-1 rounded-xl border border-themed bg-transparent px-4 py-3 text-sm outline-none focus:border-accent" /><select value={sort} onChange={event => setSort(event.target.value)} className="rounded-xl border border-themed bg-primary px-4 py-3 text-sm outline-none focus:border-accent"><option value="category">Sort by category</option><option value="name">Sort by name</option></select></div><div className="mt-6 flex flex-wrap gap-2"><a href="/shop" className={`rounded-full border px-4 py-2 text-xs ${!category ? 'border-accent text-accent' : 'border-themed text-muted'}`}>All</a>{categories.map(item => <a key={item.id} href={`/shop/${item.id}`} className={`rounded-full border px-4 py-2 text-xs ${category === item.id ? 'border-accent text-accent' : 'border-themed text-muted'}`}>{item.label}</a>)}</div>{visible.length ? <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{visible.map(product => <ProductCard key={product.id} product={product} />)}</div> : <div className="py-24 text-center text-muted">No preview pieces match your search.</div>}</div></div>
 }

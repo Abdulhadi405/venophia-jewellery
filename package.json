@@ -1,9 +1,8 @@
 {
-  "name": "premium-fashion-store",
+  "name": "venophia-store",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://usaid9.github.io/Shop",
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build",

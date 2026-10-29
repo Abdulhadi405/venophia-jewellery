@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>PREMIUM Pakistan</title>
-  <script>
-    var l = window.location;
-    sessionStorage.setItem('spa_redirect', l.pathname + l.search + l.hash);
-    l.replace(l.origin + '/Shop/');
-  </script>
-</head>
-<body></body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Venophia</title>
+    <script>
+      const path = window.location.pathname
+      const base = document.querySelector('base')?.href || '/'
+      const redirect = base + '?redirect=' + encodeURIComponent(path + window.location.search + window.location.hash)
+      window.location.replace(redirect)
+    </script>
+  </head>
+  <body></body>
 </html>
